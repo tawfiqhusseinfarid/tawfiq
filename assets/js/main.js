@@ -19,3 +19,7 @@ const observer=new IntersectionObserver(entries=>{
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 const glow=document.querySelector('.cursor-glow');
 window.addEventListener('pointermove',e=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'});
+const currentYear = document.getElementById('currentYear');
+if (currentYear) {
+  currentYear.textContent = new Date().getFullYear();
+}
