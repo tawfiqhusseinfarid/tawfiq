@@ -12,7 +12,52 @@ window.addEventListener('scroll',()=>{
   if(link) link.classList.toggle('active',y>=s.offsetTop&&y<s.offsetTop+s.offsetHeight);
  });
 });
-new Typed('#typed',{strings:['Java & Spring Boot','Angular & TypeScript','REST APIs & Databases','full-stack solutions'],typeSpeed:55,backSpeed:30,backDelay:1700,loop:true});
+const typedElement = document.getElementById('typed');
+
+if (typedElement) {
+  const phrases = [
+    'Java & Spring Boot',
+    'Angular & TypeScript',
+    'REST APIs & Databases',
+    'Full-Stack Solutions'
+  ];
+
+  let phraseIndex = 0;
+  let charIndex = 0;
+  let deleting = false;
+
+  function typeEffect() {
+    const currentPhrase = phrases[phraseIndex];
+
+    if (!deleting) {
+      charIndex++;
+      typedElement.textContent = currentPhrase.substring(0, charIndex);
+
+      if (charIndex === currentPhrase.length) {
+        deleting = true;
+        setTimeout(typeEffect, 1400);
+        return;
+      }
+
+      setTimeout(typeEffect, 55);
+    } else {
+      charIndex--;
+      typedElement.textContent = currentPhrase.substring(0, charIndex);
+
+      if (charIndex === 0) {
+        deleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+
+        setTimeout(typeEffect, 150);
+        return;
+      }
+
+      setTimeout(typeEffect, 30);
+    }
+  }
+
+  typeEffect();
+}
 const observer=new IntersectionObserver(entries=>{
  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')});
 },{threshold:.12});
